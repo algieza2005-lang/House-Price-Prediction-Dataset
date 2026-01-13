@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediksi Harga Rumah</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+        .container {
+            width: 420px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #0d6efd;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #084298;
+        }
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            background: #e9f7ef;
+            border-radius: 5px;
+        }
+        .result hr {
+            margin: 10px 0;
+        }
+        .note {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Prediksi Harga Rumah</h2>
+
+    <form action="/predict" method="post">
+        <label>Luas Bangunan (m²)</label>
+        <input type="number" name="area" step="any" required>
+
+        <label>Jumlah Kamar Tidur</label>
+        <input type="number" name="bedrooms" required>
+
+        <label>Jumlah Kamar Mandi</label>
+        <input type="number" name="bathrooms" required>
+
+        <button type="submit">Prediksi Harga</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <p><strong>Luas:</strong> {{ result.area }} m²</p>
+        <p><strong>Kamar Tidur:</strong> {{ result.bedrooms }}</p>
+        <p><strong>Kamar Mandi:</strong> {{ result.bathrooms }}</p>
+
+        <hr>
+
+        <p><strong>Perkiraan Harga:</strong></p>
+        <h3>{{ result.price }}</h3>
+
+        <div class="note">
+            *Harga ditampilkan dalam skala ribuan rupiah (× 1.000)  
+            sesuai dengan skala dataset dan hasil model.
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
